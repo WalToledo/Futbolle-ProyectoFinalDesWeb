@@ -1,6 +1,7 @@
 body{
     display: flex;
     flex-direction: column;
+    align-items: center;
     min-height: 100vh;
     background-color: #121212;
     color: #ffffff;
@@ -13,7 +14,7 @@ header{
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     background-color: #1e1e1e;
     border-bottom: 2px solid #333333;
 }
@@ -31,13 +32,25 @@ main{
     flex: 1;
     width: 100%;
     max-width: 900px;
-    padding: 10px 20px;
+    padding: 2rem 1rem;
 
 }
 
 section {
     width: 100%;
     margin-bottom: 2rem;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333333;
+    color: #ffffff;
+    font-size: 0.9rem;
 }
 
 .nav-link {
@@ -76,4 +89,19 @@ section {
     background-color: #2a2a2a;
     color: #ffffff;
     font-size: 1rem;
+}
+
+.board-header{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 2px solid #444444;
+    font-weight: 500;
+    text-align: center;
+}
+
+.column-header {
+    flex: 1;
+    text-align: center;
 }
