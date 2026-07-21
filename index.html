@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futbolle - Football Guessing Game</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1 class="game-title">Futbolle</h1>
+        <nav class="main-nav">
+            <a href="contact.html" target="_blank" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <main class="game-container">
+    
+        <section class="game-info">
+            <div class="info-card">
+                <span class="info-label">Attempts Left: </span>
+                <span id="attempts-counter" class="info-value">8</span>
+            </div>
+            <div class="info-card">
+                <span class="info-label">Time:</span>
+                <span id="timer-display" class="info-value">00:00</span>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input
+                    type="text"
+                    id="player-search-input"
+                    class="search-input"
+                    placeholder="Type a player name..."
+                    autocomplete="off"
+                >
+            </div>
+        </section>
+    </main>
+</body>
+</html>
