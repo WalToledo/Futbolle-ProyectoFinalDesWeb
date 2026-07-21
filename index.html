@@ -37,6 +37,7 @@
                     placeholder="Type a player name..."
                     autocomplete="off"
                 >
+                <ul id="autocomplete-list" class="autocomplete-list hidden"></ul>
             </div>
         </section>
 
@@ -58,5 +59,20 @@
     <footer class="main-footer">
         <p class="footer-text">Futbolle &copy; Walter Toledo - 2026 - UAI</p>
     </footer>
+
+    <div id="modal-container" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <p id="modal-message" class="modal-message"></p>
+            <div id="modal-actions" class="modal-actions">
+                <button id="modal-close-btn" class="btn btn-primary">Close</button>
+                <button id="restart-game-btn" class="btn btn-secondary hidden">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>
