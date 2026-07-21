@@ -139,3 +139,35 @@ footer{
     cursor: pointer;
     border-bottom: 1px solid #333333;
 }
+
+.attempt-row{
+    display:flex;
+    justify-content: space-between;
+    width: 100%;
+    gap:0.25rem
+}
+
+.attribute-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 50px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.correct {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+.incorrect {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+.hidden {
+    display: none !important;
+}
