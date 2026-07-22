@@ -181,7 +181,7 @@ footer{
 }
 
 .btn-primary {
-    background-color: #1f6544;
+    background-color: #29855a;
     color: #121212;
 }
 
@@ -204,7 +204,7 @@ footer{
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     font-weight: 700;
-    color: #1f6544;
+    color: #29855a;
 }
 
 .contact-form{
@@ -235,6 +235,15 @@ footer{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#btn-send-email{
+    margin-top: 0.8rem;
+}
+
+.github-container{
+    margin-top: 1rem;
+}
+
 .github-link {
+    margin-top: 1rem;
     color: #00ff88;
 }
