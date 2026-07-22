@@ -171,3 +171,70 @@ footer{
 .hidden {
     display: none !important;
 }
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #1f6544;
+    color: #121212;
+}
+
+.btn-secondary {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+/* contact */
+
+.contact-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.section-title{
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1f6544;
+}
+
+.contact-form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: #1e1e1e;
+    border-radius: 2px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #cccccc;
+}
+
+.textarea-input{
+    min-height: 120px;
+    resize:none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.github-link {
+    color: #00ff88;
+}
