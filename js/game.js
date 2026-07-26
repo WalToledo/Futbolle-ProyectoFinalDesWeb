@@ -97,3 +97,62 @@ document.addEventListener('click', function (e) {
     }
 });
 
+//comparations
+
+function processGuess(guessedPlayer) {
+    if (isGameOver || !secretPlayer) return;
+
+    attemptsLeft--;
+    updateAttemptsCounter(attemptsLeft);
+
+    var comparisons = comparePlayers(guessedPlayer, secretPlayer);
+    renderAttemptRow(guessedPlayer, comparisons);
+
+    checkWinCondition(guessedPlayer.id);
+}
+
+function comparePlayers(guess, secret) {
+    var result = {};
+
+    result.nationalityClass = (guess.nationality === secret.nationality) ? 'correct' : 'incorrect';
+    result.clubClass = (guess.club === secret.club) ? 'correct' : 'incorrect';
+    result.positionClass = (guess.position === secret.position) ? 'correct' : 'incorrect';
+
+    result.ageText = formatNumberWithArrow(guess.age, secret.age);
+    result.ageClass = (parseInt(guess.age) === parseInt(secret.age)) ? 'correct' : 'incorrect';
+
+    result.overallText = formatNumberWithArrow(guess.overall, secret.overall);
+    result.overallClass = (parseInt(guess.overall) === parseInt(secret.overall)) ? 'correct' : 'incorrect';
+
+    result.heightText = formatNumberWithArrow(guess.heightCm, secret.heightCm);
+    result.heightClass = (parseInt(guess.heightCm) === parseInt(secret.heightCm)) ? 'correct' : 'incorrect';
+
+    return result;
+}
+
+function formatNumberWithArrow(guessValue, secretValue) {
+    var gVal = parseInt(guessValue, 10);
+    var sVal = parseInt(secretValue, 10);
+
+    if (gVal === sVal) {
+        return String(gVal);
+    } else if (gVal < sVal) {
+        return gVal + ' ↑'; 
+    } else {
+        return gVal + ' ↓'; 
+    }
+}
+
+function checkWinCondition(guessedId) {
+    if (guessedId === secretPlayer.id) {
+        isGameOver = true;
+        stopTimer();
+        var timeStr = formatTime(secondsElapsed);
+        var attemptsUsed = 8 - attemptsLeft;
+        showModal('¡Ganaste!', 'Adivinaste en ' + attemptsUsed + ' intentos. Tiempo: ' + timeStr, true);
+    } else if (attemptsLeft === 0) {
+        isGameOver = true;
+        stopTimer();
+        showModal('¡Perdiste!', 'Te quedaste sin intentos. El jugador era ' + secretPlayer.name + '.', true);
+    }
+}
