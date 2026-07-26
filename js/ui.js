@@ -36,3 +36,37 @@ function hideModal() {
 
 modalCloseBtn.addEventListener('click', hideModal);
 
+
+//autocomplete
+
+function clearAutocomplete(){
+    autocompleteList.innerHTML = '';
+    autocompleteList.classList.add('hidden');
+}
+
+function renderAutocomplete(players, onSelectPlayer){
+    clearAutocomplete();
+
+    if(!players || players.lenght === 0){
+        return;
+    }
+
+    players.forEach(function (player) {
+        var li = document.createElement('li');
+        li.className = 'autocomplete-item'; 
+        li.textContent = player.name;
+        
+        li.addEventListener('click', function () {
+            searchInput.value = '';
+            clearAutocomplete();
+            onSelectPlayer(player);
+        });
+        
+        autocompleteList.appendChild(li);
+    });
+    
+    autocompleteList.classList.remove('hidden');
+}
+
+
+
