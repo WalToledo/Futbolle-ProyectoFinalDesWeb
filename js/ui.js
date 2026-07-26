@@ -68,5 +68,43 @@ function renderAutocomplete(players, onSelectPlayer){
     autocompleteList.classList.remove('hidden');
 }
 
+// game and timer
 
+function createAttributeBox(textValue, cssClass) {
+    var box = document.createElement('div');
 
+    box.className = 'attribute-box ' + cssClass;
+    box.textContent = textValue;
+    return box;
+}
+
+function renderAttemptRow(playerDetails, comparisons) {
+    var row = document.createElement('div');
+    row.className = 'attempt-row';
+    
+    row.appendChild(createAttributeBox(playerDetails.nationality, comparisons.nationalityClass));
+    row.appendChild(createAttributeBox(playerDetails.club, comparisons.clubClass));
+    row.appendChild(createAttributeBox(playerDetails.position, comparisons.positionClass));
+    
+    row.appendChild(createAttributeBox(comparisons.ageText, comparisons.ageClass));
+    row.appendChild(createAttributeBox(comparisons.overallText, comparisons.overallClass));
+    row.appendChild(createAttributeBox(comparisons.heightText, comparisons.heightClass));
+
+    attemptsBoard.appendChild(row);
+}
+
+function updateAttemptsCounter(count) {
+    attemptsCounter.textContent = count;
+}
+
+function updateTimerDisplay(timeString) {
+    timerDisplay.textContent = timeString;
+}
+
+function resetBoardUI() {
+    attemptsBoard.innerHTML = '';
+    updateAttemptsCounter(8);
+    updateTimerDisplay('00:00');
+    searchInput.value = '';
+    clearAutocomplete();
+}
