@@ -82,6 +82,7 @@ function renderAttemptRow(playerDetails, comparisons) {
     var row = document.createElement('div');
     row.className = 'attempt-row';
     
+    row.appendChild(createAttributeBox(playerDetails.name, 'name-box'));
     row.appendChild(createAttributeBox(playerDetails.nationality, comparisons.nationalityClass));
     row.appendChild(createAttributeBox(playerDetails.club, comparisons.clubClass));
     row.appendChild(createAttributeBox(playerDetails.position, comparisons.positionClass));
