@@ -168,6 +168,11 @@ footer{
     color: #ffffff;
 }
 
+.name-box {
+    background-color: #00009c;
+    color: #ffffff;
+}
+
 .hidden {
     display: none !important;
 }
