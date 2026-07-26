@@ -20,7 +20,7 @@ function getRandomPlayer(onSuccess, onError){
 
 function searchPlayers(query, limit, onSuccess, onError){
     var searchLimit = limit || 8;
-    var url = BASE_URL + '/search?q' + encodeURIComponent(query) + '&limit=' + searchLimit;
+    var url = BASE_URL + '/search?q=' + encodeURIComponent(query) + '&limit=' + searchLimit;
 
     if (!query || query.length < 2) {
         onSuccess([]);
