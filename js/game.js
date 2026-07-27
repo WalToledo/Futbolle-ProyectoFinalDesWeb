@@ -6,6 +6,7 @@ var timerInterval = null;
 var secondsElapsed = 0;
 var isGameOver = false;
 var humanPlayerName = '';
+var guessedPlayersIds = [];
 
 function formatTime(totalSeconds) {
     var minutes = Math.floor(totalSeconds / 60);
@@ -39,6 +40,7 @@ function initGame() {
     attemptsLeft = 8;
     secondsElapsed = 0;
     secretPlayer = null;
+    guessedPlayersIds = [];
     
     resetBoardUI();
     stopTimer();
@@ -120,6 +122,10 @@ document.addEventListener('click', function (e) {
 
 function processGuess(guessedPlayer) {
     if (isGameOver || !secretPlayer) return;
+    if (guessedPlayersIds.indexOf(guessedPlayer.id) !== -1) {
+        return;
+    }
+    guessedPlayersIds.push(guessedPlayer.id);
     attemptsLeft--;
     updateAttemptsCounter(attemptsLeft);
     var comparisons = comparePlayers(guessedPlayer, secretPlayer);
