@@ -309,6 +309,43 @@ footer{
     font-size: 0.9rem;
 }
 
+.theme-toggle-btn {
+    margin-left: 1rem;
+    background-color: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+}
+
+body.light-mode {
+    background-color: #f4f4f4;
+    color: #121212;
+}
+body.light-mode header,
+body.light-mode footer,
+body.light-mode .game-info,
+body.light-mode .contact-form,
+body.light-mode .modal-content {
+    background-color: #ffffff;
+    border-color: #dddddd;
+}
+body.light-mode .search-input,
+body.light-mode .autocomplete-item,
+body.light-mode .autocomplete-list {
+    background-color: #ffffff;
+    color: #121212;
+    border-color: #cccccc;
+}
+body.light-mode .nav-link,
+body.light-mode .info-label,
+body.light-mode .form-label,
+body.light-mode .modal-message {
+    color: #121212;
+}
+body.light-mode .theme-toggle-btn {
+    border-color: #29855a;
+    color: #29855a;
+}
+
 /*Media Querys*/
 
 @media (max-width: 600px) {
