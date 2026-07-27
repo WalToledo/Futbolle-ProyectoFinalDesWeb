@@ -46,10 +46,10 @@ function initGame() {
         function (playerData) {
             secretPlayer = playerData;
             startTimer();
-            console.log('El jugador secreto es:', secretPlayer.name);
+            console.log('Secret player:', secretPlayer.name);
         },
         function (error) {
-            showModal('Error de Conexión', 'No se pudo obtener el jugador secreto. Revisa tu internet.', true);
+            showModal('Connection error', 'It is not possible to get the secret player. Check your internet connection.', true);
         }
     );
 }
@@ -101,13 +101,10 @@ document.addEventListener('click', function (e) {
 
 function processGuess(guessedPlayer) {
     if (isGameOver || !secretPlayer) return;
-
     attemptsLeft--;
     updateAttemptsCounter(attemptsLeft);
-
     var comparisons = comparePlayers(guessedPlayer, secretPlayer);
     renderAttemptRow(guessedPlayer, comparisons);
-
     checkWinCondition(guessedPlayer.id);
 }
 
@@ -149,10 +146,10 @@ function checkWinCondition(guessedId) {
         stopTimer();
         var timeStr = formatTime(secondsElapsed);
         var attemptsUsed = 8 - attemptsLeft;
-        showModal('¡Ganaste!', 'Adivinaste en ' + attemptsUsed + ' intentos. Tiempo: ' + timeStr, true);
+        showModal('¡You won!', 'Guessed it in ' + attemptsUsed + ' attempts. Time: ' + timeStr, true);
     } else if (attemptsLeft === 0) {
         isGameOver = true;
         stopTimer();
-        showModal('¡Perdiste!', 'Te quedaste sin intentos. El jugador era ' + secretPlayer.name + '.', true);
+        showModal('¡You lost!', 'You ran off of attempts. The player was ' + secretPlayer.name + '.', true);
     }
 }
