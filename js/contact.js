@@ -23,6 +23,11 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
+function isValidName(nameValue){
+    var alphanumericRegex = /^[a-zA-Z0-9\s]+$/;
+    return alphanumericRegex.test(nameValue);
+}
+
 contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
     var nameValue = nameInput.value.trim();
@@ -34,13 +39,18 @@ contactForm.addEventListener('submit', function (e) {
         return;
     }
 
+    if (!isValidName(nameValue)) {
+        showFeedback('Please, insert a valid name (only letters and numbers).', '#c62828');
+        return;
+    }
+
     if (!isValidEmail(emailValue)) {
         showFeedback('Please, insert a correct email.', '#c62828');
         return;
     }
 
-    if (messageValue.length < 15) {
-        showFeedback('Message is too short. Has to be of minimum 15 characters.', '#c62828');
+    if (messageValue.length < 5) {
+        showFeedback('Message is too short. Has to be of minimum 5 characters.', '#c62828');
         return;
     }
 
