@@ -181,6 +181,7 @@ function checkWinCondition(guessedId) {
         isGameOver = true;
         stopTimer();
         winSound.play();
+        saveMatchResult('Won');
         var timeStr = formatTime(secondsElapsed);
         var attemptsUsed = 8 - attemptsLeft;
         showModal('¡You won!', 'Guessed it in ' + attemptsUsed + ' attempts. Time: ' + timeStr, true);
@@ -188,6 +189,25 @@ function checkWinCondition(guessedId) {
         isGameOver = true;
         stopTimer();
         loseSound.play();
+        saveMatchResult('Lost');
         showModal('¡You lost!', 'You ran off of attempts. The player was ' + secretPlayer.name + '.', true);
     }
+}
+
+function saveMatchResult(matchResult) {
+    var attemptsUsed = 8 - attemptsLeft;
+    var timeStr = formatTime(secondsElapsed);
+    var currentDate = new Date();
+    var dateStr = currentDate.toLocaleDateString() + ' ' + currentDate.toLocaleTimeString();
+    var matchRecord = {
+        playerName: humanPlayerName,
+        result: matchResult,
+        attempts: attemptsUsed,
+        date: dateStr,
+        duration: timeStr
+    };
+    var history = localStorage.getItem('futbolle_history');
+    var historyArray = history ? JSON.parse(history) : [];
+    historyArray.push(matchRecord);
+    localStorage.setItem('futbolle_history', JSON.stringify(historyArray));
 }
