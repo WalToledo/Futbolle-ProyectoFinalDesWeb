@@ -299,6 +299,16 @@ footer{
     gap: 1rem;
 }
 
+.modal-input {
+    margin-bottom: 1rem;
+}
+.modal-error {
+    color: #c62828;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
 /*Media Querys*/
 
 @media (max-width: 600px) {

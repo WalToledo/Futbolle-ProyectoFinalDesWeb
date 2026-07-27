@@ -5,6 +5,7 @@ var attemptsLeft = 8;
 var timerInterval = null;
 var secondsElapsed = 0;
 var isGameOver = false;
+var humanPlayerName = '';
 
 function formatTime(totalSeconds) {
     var minutes = Math.floor(totalSeconds / 60);
@@ -54,7 +55,25 @@ function initGame() {
     );
 }
 
-initGame();
+showWelcomeModal();
+
+startGameBtn.addEventListener('click', function () {
+    var name = humanNameInput.value.trim();
+    
+    if (name.length < 3) {
+        modalError.textContent = 'Name must have at least 3 letters.';
+        return;
+    }
+    
+    humanPlayerName = name;
+    
+    humanNameInput.classList.add('hidden');
+    startGameBtn.classList.add('hidden');
+    modalError.textContent = '';
+    
+    hideModal();
+    initGame();
+});
 
 restartGameBtn.addEventListener('click', function () {
     hideModal();

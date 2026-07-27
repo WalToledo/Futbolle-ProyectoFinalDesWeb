@@ -5,10 +5,11 @@ var modalTitle = document.getElementById('modal-title');
 var modalMessage = document.getElementById('modal-message');
 var modalCloseBtn = document.getElementById('modal-close-btn');
 var restartGameBtn = document.getElementById('restart-game-btn');
-
+var humanNameInput = document.getElementById('human-name-input');
+var modalError = document.getElementById('modal-error');
+var startGameBtn = document.getElementById('start-game-btn');
 var searchInput = document.getElementById('player-search-input');
 var autocompleteList = document.getElementById('autocomplete-list');
-
 var attemptsBoard = document.getElementById('attempts-board');
 var attemptsCounter = document.getElementById('attempts-counter');
 var timerDisplay = document.getElementById('timer-display');
@@ -28,6 +29,20 @@ function showModal(title, message, showRestart){
         restartGameBtn.classList.add('hidden');
         modalCloseBtn.classList.remove('hidden');
     }
+}
+
+function showWelcomeModal() {
+    modalTitle.textContent = 'Welcome to Futbolle';
+    modalMessage.textContent = 'Please enter your name to start playing.';
+    modalError.textContent = '';
+    humanNameInput.value = '';
+    
+    humanNameInput.classList.remove('hidden');
+    startGameBtn.classList.remove('hidden');
+    
+    modalCloseBtn.classList.add('hidden');
+    restartGameBtn.classList.add('hidden');
+    modalContainer.classList.remove('hidden');
 }
 
 function hideModal() {
