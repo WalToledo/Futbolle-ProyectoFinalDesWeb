@@ -7,6 +7,10 @@ var secondsElapsed = 0;
 var isGameOver = false;
 var humanPlayerName = '';
 var guessedPlayersIds = [];
+var winSound = new Audio('sounds/win.mp3');
+var loseSound = new Audio('sounds/lose.mp3');
+var attributeSound = new Audio('sounds/correct.mp3');
+var startSound = new Audio('sounds/start.mp3')
 
 function formatTime(totalSeconds) {
     var minutes = Math.floor(totalSeconds / 60);
@@ -69,6 +73,7 @@ startGameBtn.addEventListener('click', function () {
     humanNameInput.classList.add('hidden');
     startGameBtn.classList.add('hidden');
     modalError.textContent = '';
+    startSound.play()
     
     hideModal();
     initGame();
@@ -132,6 +137,10 @@ function processGuess(guessedPlayer) {
     updateAttemptsCounter(attemptsLeft);
     var comparisons = comparePlayers(guessedPlayer, secretPlayer);
     renderAttemptRow(guessedPlayer, comparisons);
+    var hasCorrect = (comparisons.nationalityClass === 'correct' || comparisons.clubClass === 'correct' || comparisons.positionClass === 'correct' || comparisons.ageClass === 'correct' || comparisons.overallClass === 'correct' || comparisons.heightClass === 'correct');
+    if (hasCorrect && guessedPlayer.id !== secretPlayer.id) {
+        attributeSound.play();
+    }
     checkWinCondition(guessedPlayer.id);
 }
 
@@ -171,12 +180,14 @@ function checkWinCondition(guessedId) {
     if (guessedId === secretPlayer.id) {
         isGameOver = true;
         stopTimer();
+        winSound.play();
         var timeStr = formatTime(secondsElapsed);
         var attemptsUsed = 8 - attemptsLeft;
         showModal('¡You won!', 'Guessed it in ' + attemptsUsed + ' attempts. Time: ' + timeStr, true);
     } else if (attemptsLeft === 0) {
         isGameOver = true;
         stopTimer();
+        loseSound.play();
         showModal('¡You lost!', 'You ran off of attempts. The player was ' + secretPlayer.name + '.', true);
     }
 }
