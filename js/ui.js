@@ -13,7 +13,7 @@ var autocompleteList = document.getElementById('autocomplete-list');
 var attemptsBoard = document.getElementById('attempts-board');
 var attemptsCounter = document.getElementById('attempts-counter');
 var timerDisplay = document.getElementById('timer-display');
-
+var inGameRestartBtn = document.getElementById('in-game-restart-btn');
 
 function showModal(title, message, showRestart){
     modalTitle.textContent = title;
