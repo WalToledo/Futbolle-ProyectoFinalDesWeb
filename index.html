@@ -13,6 +13,7 @@
         <nav class="main-nav">
             <a href="contact.html" class="nav-link">Contact Us</a>
             <button id="theme-toggle-btn" class="btn theme-toggle-btn">Light Mode</button>
+            <button id="history-btn" class="btn history-btn">History</button>
         </nav>
     </header>
 
@@ -71,6 +72,33 @@
                 <button id="modal-close-btn" class="btn btn-primary">Close</button>
                 <button id="restart-game-btn" class="btn btn-secondary hidden">Play Again</button>
                 <button id="start-game-btn" class="btn btn-primary hidden">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="history-modal" class="modal-overlay hidden">
+        <div class="modal-content history-content">
+            <h2 class="modal-title">Match History</h2>
+            <div class="history-controls">
+                <button id="sort-date-btn" class="btn btn-secondary">Sort by Date</button>
+                <button id="sort-attempts-btn" class="btn btn-secondary">Sort by Attempts</button>
+            </div>
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Result</th>
+                            <th>Attempts</th>
+                            <th>Duration</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody"></tbody>
+                </table>
+            </div>
+            <div class="modal-actions">
+                <button id="close-history-btn" class="btn btn-primary">Close</button>
             </div>
         </div>
     </div>

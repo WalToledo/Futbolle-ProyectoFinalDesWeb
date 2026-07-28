@@ -11,6 +11,11 @@ var winSound = new Audio('sounds/win.mp3');
 var loseSound = new Audio('sounds/lose.mp3');
 var attributeSound = new Audio('sounds/correct.mp3');
 var startSound = new Audio('sounds/start.mp3')
+var historyBtn = document.getElementById('history-btn');
+var sortDateBtn = document.getElementById('sort-date-btn');
+var sortAttemptsBtn = document.getElementById('sort-attempts-btn');
+var currentSort = 'date';
+var currentHistory = [];
 
 function formatTime(totalSeconds) {
     var minutes = Math.floor(totalSeconds / 60);
@@ -204,10 +209,49 @@ function saveMatchResult(matchResult) {
         result: matchResult,
         attempts: attemptsUsed,
         date: dateStr,
-        duration: timeStr
+        duration: timeStr,
+        timestamp: currentDate.getTime()
     };
     var history = localStorage.getItem('futbolle_history');
     var historyArray = history ? JSON.parse(history) : [];
     historyArray.push(matchRecord);
     localStorage.setItem('futbolle_history', JSON.stringify(historyArray));
+}
+
+function loadHistory() {
+    var history = localStorage.getItem('futbolle_history');
+    currentHistory = history ? JSON.parse(history) : [];
+}
+function sortHistory() {
+    if (currentSort === 'attempts') {
+        currentHistory.sort(function(a, b) {
+            return a.attempts - b.attempts;
+        });
+    } else {
+        currentHistory.sort(function(a, b) {
+            return b.timestamp - a.timestamp;
+        });
+    }
+}
+if (historyBtn) {
+    historyBtn.addEventListener('click', function() {
+        loadHistory();
+        sortHistory();
+        renderHistoryTable(currentHistory);
+        showHistoryModal();
+    });
+}
+if (sortDateBtn) {
+    sortDateBtn.addEventListener('click', function() {
+        currentSort = 'date';
+        sortHistory();
+        renderHistoryTable(currentHistory);
+    });
+}
+if (sortAttemptsBtn) {
+    sortAttemptsBtn.addEventListener('click', function() {
+        currentSort = 'attempts';
+        sortHistory();
+        renderHistoryTable(currentHistory);
+    });
 }

@@ -14,6 +14,9 @@ var attemptsBoard = document.getElementById('attempts-board');
 var attemptsCounter = document.getElementById('attempts-counter');
 var timerDisplay = document.getElementById('timer-display');
 var inGameRestartBtn = document.getElementById('in-game-restart-btn');
+var historyModal = document.getElementById('history-modal');
+var historyTbody = document.getElementById('history-tbody');
+var closeHistoryBtn = document.getElementById('close-history-btn');
 
 function showModal(title, message, showRestart){
     modalTitle.textContent = title;
@@ -123,4 +126,49 @@ function resetBoardUI() {
     updateTimerDisplay('00:00');
     searchInput.value = '';
     clearAutocomplete();
+}
+
+function showHistoryModal() {
+    historyModal.classList.remove('hidden');
+}
+
+function hideHistoryModal() {
+    historyModal.classList.add('hidden');
+}
+
+if (closeHistoryBtn) {
+    closeHistoryBtn.addEventListener('click', hideHistoryModal);
+}
+
+function renderHistoryTable(historyArray) {
+    historyTbody.innerHTML = '';
+    if (!historyArray || historyArray.length === 0) {
+        var trEmpty = document.createElement('tr');
+        var tdEmpty = document.createElement('td');
+        tdEmpty.colSpan = 5;
+        tdEmpty.textContent = 'No matches played yet.';
+        tdEmpty.className = 'empty-history';
+        trEmpty.appendChild(tdEmpty);
+        historyTbody.appendChild(trEmpty);
+        return;
+    }
+    historyArray.forEach(function(record) {
+        var tr = document.createElement('tr');
+        var tdName = document.createElement('td');
+        tdName.textContent = record.playerName;
+        var tdResult = document.createElement('td');
+        tdResult.textContent = record.result;
+        var tdAttempts = document.createElement('td');
+        tdAttempts.textContent = record.attempts;
+        var tdDuration = document.createElement('td');
+        tdDuration.textContent = record.duration;
+        var tdDate = document.createElement('td');
+        tdDate.textContent = record.date;
+        tr.appendChild(tdName);
+        tr.appendChild(tdResult);
+        tr.appendChild(tdAttempts);
+        tr.appendChild(tdDuration);
+        tr.appendChild(tdDate);
+        historyTbody.appendChild(tr);
+    });
 }
