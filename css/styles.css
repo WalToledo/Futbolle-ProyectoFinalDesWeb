@@ -195,8 +195,6 @@ footer{
     color: #ffffff;
 }
 
-/* contact */
-
 .contact-section{
     display: flex;
     flex-direction: column;
@@ -252,8 +250,6 @@ footer{
     margin-top: 1rem;
     color: #00ff88;
 }
-
-/*Modals*/
 
 .modal-overlay {
     position: fixed;
@@ -346,7 +342,57 @@ body.light-mode .theme-toggle-btn {
     color: #29855a;
 }
 
-/*Media Querys*/
+.history-btn {
+    margin-left: 1rem;
+    background-color: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+}
+.history-content {
+    max-width: 700px;
+    width: 95%;
+}
+.history-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.history-table-container {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+.history-table th,
+.history-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #444444;
+    font-size: 0.9rem;
+}
+.history-table th {
+    color: #00ff88;
+    font-weight: 600;
+}
+.empty-history {
+    text-align: center;
+    padding: 1rem;
+}
+body.light-mode .history-btn {
+    border-color: #29855a;
+    color: #29855a;
+}
+body.light-mode .history-table th,
+body.light-mode .history-table td {
+    border-bottom-color: #cccccc;
+}
+body.light-mode .history-table th {
+    color: #29855a;
+}
 
 @media (max-width: 600px) {
     header {
