@@ -33,33 +33,26 @@ contactForm.addEventListener('submit', function (e) {
     var nameValue = nameInput.value.trim();
     var emailValue = emailInput.value.trim();
     var messageValue = messageInput.value.trim();
-
     if (nameValue === '' || emailValue === '' || messageValue === '') {
         showFeedback('Please, fulfill all camps', '#c62828');
         return;
     }
-
     if (!isValidName(nameValue)) {
         showFeedback('Please, insert a valid name (only letters and numbers).', '#c62828');
         return;
     }
-
     if (!isValidEmail(emailValue)) {
         showFeedback('Please, insert a correct email.', '#c62828');
         return;
     }
-
     if (messageValue.length < 5) {
         showFeedback('Message is too short. Has to be of minimum 5 characters.', '#c62828');
         return;
     }
-
     var subject = encodeURIComponent('Contact from Futbolle of ' + nameValue);
     var body = encodeURIComponent(messageValue);
-    
     var subject = encodeURIComponent('Contact from Futbolle of ' + nameValue);
     var body = encodeURIComponent(messageValue);
     window.location.href = 'mailto:' + emailValue + '?subject=' + subject + '&body=' + body;
-    
     contactForm.reset();
 });

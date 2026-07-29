@@ -60,7 +60,7 @@ function clearAutocomplete(){
 
 function renderAutocomplete(players, onSelectPlayer){
     clearAutocomplete();
-    if(!players || players.lenght === 0){
+    if(!players || players.length === 0){
         return;
     }
 
@@ -134,7 +134,7 @@ function renderHistoryTable(historyArray) {
     if (!historyArray || historyArray.length === 0) {
         var trEmpty = document.createElement('tr');
         var tdEmpty = document.createElement('td');
-        tdEmpty.colSpan = 5;
+        tdEmpty.colSpan = 6;
         tdEmpty.textContent = 'No matches played yet.';
         tdEmpty.className = 'empty-history';
         trEmpty.appendChild(tdEmpty);
@@ -147,6 +147,8 @@ function renderHistoryTable(historyArray) {
         tdName.textContent = record.playerName;
         var tdResult = document.createElement('td');
         tdResult.textContent = record.result;
+        var tdScore = document.createElement('td');
+        tdScore.textContent = record.score !== undefined ? record.score : '-';
         var tdAttempts = document.createElement('td');
         tdAttempts.textContent = record.attempts;
         var tdDuration = document.createElement('td');
@@ -155,6 +157,7 @@ function renderHistoryTable(historyArray) {
         tdDate.textContent = record.date;
         tr.appendChild(tdName);
         tr.appendChild(tdResult);
+        tr.appendChild(tdScore);
         tr.appendChild(tdAttempts);
         tr.appendChild(tdDuration);
         tr.appendChild(tdDate);

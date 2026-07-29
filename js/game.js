@@ -198,15 +198,17 @@ function checkWinCondition(guessedId) {
         isGameOver = true;
         stopTimer();
         winSound.play();
-        saveMatchResult('Won');
-        var timeStr = formatTime(secondsElapsed);
         var attemptsUsed = 8 - attemptsLeft;
-        showModal('¡You won!', 'Guessed it in ' + attemptsUsed + ' attempts. Time: ' + timeStr, true);
+        var finalScore = calculateScore(true, attemptsUsed, secondsElapsed, currentDifficulty);
+        saveMatchResult('Won', finalScore);
+        var timeStr = formatTime(secondsElapsed);
+        showModal('¡You won!', 'Guessed it in ' + attemptsUsed + ' attempts. Time: ' + timeStr + '. Score: ' + finalScore, true);
     } else if (attemptsLeft === 0) {
         isGameOver = true;
         stopTimer();
         loseSound.play();
-        saveMatchResult('Lost');
+        var finalScore = calculateScore(false, 8, secondsElapsed, currentDifficulty);
+        saveMatchResult('Lost', finalScore);
         showModal('¡You lost!', 'You ran off of attempts. The player was ' + secretPlayer.name + '.', true);
     }
 }
@@ -266,4 +268,50 @@ if (sortAttemptsBtn) {
         sortHistory();
         renderHistoryTable(currentHistory);
     });
+}
+
+function calculateScore(isWin, attemptsUsed, timeSeconds, difficulty) {
+    if (!isWin) {
+        return 0;
+    }
+    var basePoints = 0;
+    if (difficulty === 'easy') {
+        basePoints = 60;
+    } else if (difficulty === 'medium') {
+        basePoints = 80;
+    } else if (difficulty === 'hard') {
+        basePoints = 100;
+    }
+    var penalty = (attemptsUsed - 1) * 10;
+    var timeBonus = 0;
+    if (timeSeconds < 60) {
+        timeBonus = 20;
+    } else if (timeSeconds < 120) {
+        timeBonus = 10;
+    }
+    var finalScore = basePoints - penalty + timeBonus;
+    if (finalScore < 10) {
+        finalScore = 10;
+    }
+    return finalScore;
+}
+
+function saveMatchResult(matchResult, matchScore) {
+    var attemptsUsed = 8 - attemptsLeft;
+    var timeStr = formatTime(secondsElapsed);
+    var currentDate = new Date();
+    var dateStr = currentDate.toLocaleDateString() + ' ' + currentDate.toLocaleTimeString();
+    var matchRecord = {
+        playerName: humanPlayerName,
+        result: matchResult,
+        score: matchScore,
+        attempts: attemptsUsed,
+        date: dateStr,
+        duration: timeStr,
+        timestamp: currentDate.getTime()
+    };
+    var history = localStorage.getItem('futbolle_history');
+    var historyArray = history ? JSON.parse(history) : [];
+    historyArray.push(matchRecord);
+    localStorage.setItem('futbolle_history', JSON.stringify(historyArray));
 }

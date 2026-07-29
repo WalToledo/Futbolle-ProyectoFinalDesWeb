@@ -5,7 +5,7 @@ body{
     min-height: 100vh;
     background-color: #121212;
     color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.5;
 }
 
@@ -15,14 +15,17 @@ header{
     align-items: center;
     width: 100%;
     padding: 1rem 2rem;
-    background-color: #1e1e1e;
+    background-color: #181818;
     border-bottom: 2px solid #333333;
 }
 
-h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #00ff88;
+.game-logo {
+    max-height: 50px;
+    width: 100%;
+    max-width: 25vw;
+    min-width: 120px;
+    object-fit: contain;
+    object-position: left;
 }
 
 main{
@@ -51,6 +54,11 @@ footer{
     border-top: 1px solid #333333;
     color: #ffffff;
     font-size: 0.9rem;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
 }
 
 .nav-link {
@@ -152,10 +160,12 @@ footer{
     justify-content: center;
     align-items: center;
     flex: 1;
-    height: 50px;
+    min-height: 50px;
+    padding: 0.25rem;
     border-radius: 4px;
     font-weight: 600;
     text-align: center;
+    word-break:normal;
 }
 
 .correct {
@@ -235,7 +245,7 @@ footer{
 .textarea-input{
     min-height: 120px;
     resize:none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #btn-send-email{
@@ -440,15 +450,27 @@ body.light-mode .history-table th {
 
 @media (max-width: 600px) {
     header {
-        padding: 0.8rem 1rem;
+        padding: 0.8rem 0.5rem;
     }
-
+    .game-logo {
+        max-height: 25px;
+    }
+    .nav-link {
+        font-size: 0.8rem;
+    }
+    .btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    .theme-toggle-btn, .history-btn {
+        margin-left: 0.4rem;
+    }
     .column-header {
         font-size: 0.75rem;
     }
-
     .attribute-box {
         height: 40px;
         font-size: 0.75rem;
+        padding: 0 0.2rem;
     }
 }
