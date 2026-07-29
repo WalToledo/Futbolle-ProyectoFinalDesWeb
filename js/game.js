@@ -16,14 +16,13 @@ var sortDateBtn = document.getElementById('sort-date-btn');
 var sortAttemptsBtn = document.getElementById('sort-attempts-btn');
 var currentSort = 'date';
 var currentHistory = [];
+var currentDifficulty = 'easy';
 
 function formatTime(totalSeconds) {
     var minutes = Math.floor(totalSeconds / 60);
     var seconds = totalSeconds % 60;
-    
     var minutesStr = minutes < 10 ? '0' + minutes : minutes;
     var secondsStr = seconds < 10 ? '0' + seconds : seconds;
-    
     return minutesStr + ':' + secondsStr;
 }
 
@@ -50,13 +49,24 @@ function initGame() {
     secondsElapsed = 0;
     secretPlayer = null;
     guessedPlayersIds = [];
-    
     resetBoardUI();
     stopTimer();
-
     getRandomPlayer(
         function (playerData) {
             secretPlayer = playerData;
+            extraCluesSection.classList.remove('hidden');
+            mediumCluesContainer.innerHTML = '';
+            secretPlayerPhoto.src = secretPlayer.photo;
+            secretPlayerPhoto.className = 'secret-photo blur-8';
+            if (currentDifficulty === 'easy') {
+                secretPlayerPhoto.classList.remove('hidden');
+                mediumCluesContainer.classList.add('hidden');
+            } else if (currentDifficulty === 'medium') {
+                secretPlayerPhoto.classList.add('hidden');
+                mediumCluesContainer.classList.remove('hidden');
+            } else {
+                extraCluesSection.classList.add('hidden');
+            }
             startTimer();
             console.log('Secret player:', secretPlayer.name);
         },
@@ -75,7 +85,9 @@ startGameBtn.addEventListener('click', function () {
         return;
     }
     humanPlayerName = name;
+    currentDifficulty = difficultySelect.value;
     humanNameInput.classList.add('hidden');
+    difficultySelect.classList.add('hidden');
     startGameBtn.classList.add('hidden');
     modalError.textContent = '';
     startSound.play()
@@ -100,11 +112,9 @@ var searchTimeout = null;
 
 searchInput.addEventListener('input', function (e) {
     var query = e.target.value.trim();
-
     if (searchTimeout) {
         clearTimeout(searchTimeout);
     }
-
     if (query.length < 2) {
         clearAutocomplete();
         return;
@@ -140,6 +150,14 @@ function processGuess(guessedPlayer) {
     guessedPlayersIds.push(guessedPlayer.id);
     attemptsLeft--;
     updateAttemptsCounter(attemptsLeft);
+    if (currentDifficulty === 'easy' && guessedPlayer.id !== secretPlayer.id) {
+        secretPlayerPhoto.className = 'secret-photo blur-' + attemptsLeft;
+    } else if (currentDifficulty === 'medium' && guessedPlayer.id !== secretPlayer.id) {
+        var attemptsUsed = 8 - attemptsLeft;
+        if (attemptsUsed === 2) { addMediumClue('Age: ' + secretPlayer.age); }
+        if (attemptsUsed === 4) { addMediumClue('Overall: ' + secretPlayer.overall); }
+        if (attemptsUsed === 6) { addMediumClue('Height: ' + secretPlayer.heightCm + 'cm'); }
+    }
     var comparisons = comparePlayers(guessedPlayer, secretPlayer);
     renderAttemptRow(guessedPlayer, comparisons);
     var hasCorrect = (comparisons.nationalityClass === 'correct' || comparisons.clubClass === 'correct' || comparisons.positionClass === 'correct' || comparisons.ageClass === 'correct' || comparisons.overallClass === 'correct' || comparisons.heightClass === 'correct');
@@ -151,27 +169,21 @@ function processGuess(guessedPlayer) {
 
 function comparePlayers(guess, secret) {
     var result = {};
-
     result.nationalityClass = (guess.nationality === secret.nationality) ? 'correct' : 'incorrect';
     result.clubClass = (guess.club === secret.club) ? 'correct' : 'incorrect';
     result.positionClass = (guess.position === secret.position) ? 'correct' : 'incorrect';
-
     result.ageText = formatNumberWithArrow(guess.age, secret.age);
     result.ageClass = (parseInt(guess.age) === parseInt(secret.age)) ? 'correct' : 'incorrect';
-
     result.overallText = formatNumberWithArrow(guess.overall, secret.overall);
     result.overallClass = (parseInt(guess.overall) === parseInt(secret.overall)) ? 'correct' : 'incorrect';
-
     result.heightText = formatNumberWithArrow(guess.heightCm, secret.heightCm);
     result.heightClass = (parseInt(guess.heightCm) === parseInt(secret.heightCm)) ? 'correct' : 'incorrect';
-
     return result;
 }
 
 function formatNumberWithArrow(guessValue, secretValue) {
     var gVal = parseInt(guessValue, 10);
     var sVal = parseInt(secretValue, 10);
-
     if (gVal === sVal) {
         return String(gVal);
     } else if (gVal < sVal) {

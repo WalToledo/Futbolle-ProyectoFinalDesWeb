@@ -17,17 +17,18 @@ var inGameRestartBtn = document.getElementById('in-game-restart-btn');
 var historyModal = document.getElementById('history-modal');
 var historyTbody = document.getElementById('history-tbody');
 var closeHistoryBtn = document.getElementById('close-history-btn');
+var difficultySelect = document.getElementById('difficulty-select');
+var extraCluesSection = document.getElementById('extra-clues-section');
+var secretPlayerPhoto = document.getElementById('secret-player-photo');
+var mediumCluesContainer = document.getElementById('medium-clues-container');
 
 function showModal(title, message, showRestart){
     modalTitle.textContent = title;
     modalMessage.textContent = message;
-
     modalContainer.classList.remove('hidden');
-
     if(showRestart){
         restartGameBtn.classList.remove('hidden');
         modalCloseBtn.classList.add('hidden');
-
     }else{
         restartGameBtn.classList.add('hidden');
         modalCloseBtn.classList.remove('hidden');
@@ -39,10 +40,8 @@ function showWelcomeModal() {
     modalMessage.textContent = 'Please enter your name to start playing.';
     modalError.textContent = '';
     humanNameInput.value = '';
-    
     humanNameInput.classList.remove('hidden');
     startGameBtn.classList.remove('hidden');
-    
     modalCloseBtn.classList.add('hidden');
     restartGameBtn.classList.add('hidden');
     modalContainer.classList.remove('hidden');
@@ -54,9 +53,6 @@ function hideModal() {
 
 modalCloseBtn.addEventListener('click', hideModal);
 
-
-//autocomplete
-
 function clearAutocomplete(){
     autocompleteList.innerHTML = '';
     autocompleteList.classList.add('hidden');
@@ -64,7 +60,6 @@ function clearAutocomplete(){
 
 function renderAutocomplete(players, onSelectPlayer){
     clearAutocomplete();
-
     if(!players || players.lenght === 0){
         return;
     }
@@ -73,24 +68,18 @@ function renderAutocomplete(players, onSelectPlayer){
         var li = document.createElement('li');
         li.className = 'autocomplete-item'; 
         li.textContent = player.name;
-        
         li.addEventListener('click', function () {
             searchInput.value = '';
             clearAutocomplete();
             onSelectPlayer(player);
         });
-        
         autocompleteList.appendChild(li);
     });
-    
     autocompleteList.classList.remove('hidden');
 }
 
-// game and timer
-
 function createAttributeBox(textValue, cssClass) {
     var box = document.createElement('div');
-
     box.className = 'attribute-box ' + cssClass;
     box.textContent = textValue;
     return box;
@@ -99,16 +88,16 @@ function createAttributeBox(textValue, cssClass) {
 function renderAttemptRow(playerDetails, comparisons) {
     var row = document.createElement('div');
     row.className = 'attempt-row';
-    
+    var isHardMode = (typeof currentDifficulty !== 'undefined' && currentDifficulty === 'hard');
+    var displayedClub = isHardMode ? '???' : playerDetails.club;
+    var clubCss = isHardMode ? 'hidden-hard-mode' : comparisons.clubClass;
     row.appendChild(createAttributeBox(playerDetails.name, 'name-box'));
     row.appendChild(createAttributeBox(playerDetails.nationality, comparisons.nationalityClass));
-    row.appendChild(createAttributeBox(playerDetails.club, comparisons.clubClass));
+    row.appendChild(createAttributeBox(displayedClub, clubCss));
     row.appendChild(createAttributeBox(playerDetails.position, comparisons.positionClass));
-    
     row.appendChild(createAttributeBox(comparisons.ageText, comparisons.ageClass));
     row.appendChild(createAttributeBox(comparisons.overallText, comparisons.overallClass));
     row.appendChild(createAttributeBox(comparisons.heightText, comparisons.heightClass));
-
     attemptsBoard.appendChild(row);
 }
 
@@ -171,4 +160,11 @@ function renderHistoryTable(historyArray) {
         tr.appendChild(tdDate);
         historyTbody.appendChild(tr);
     });
+}
+
+function addMediumClue(clueText) {
+    var badge = document.createElement('div');
+    badge.className = 'clue-badge';
+    badge.textContent = clueText;
+    mediumCluesContainer.appendChild(badge);
 }
