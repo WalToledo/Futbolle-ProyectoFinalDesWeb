@@ -30,6 +30,11 @@
             <button id="in-game-restart-btn" class="btn btn-secondary">Restart Match</button>
         </section>
 
+        <section id="extra-clues-section" class="extra-clues-section hidden">
+            <img id="secret-player-photo" class="secret-photo blur-8 hidden" src="" alt="Secret Player" referrerpolicy="no-referrer"><img id="secret-player-photo" class="secret-photo blur-8 hidden" src="" alt="Secret Player">
+            <div id="medium-clues-container" class="medium-clues hidden"></div>
+        </section>
+
         <section class="search-section">
             <div class="search-container">
                 <input
@@ -66,6 +71,11 @@
         <div class="modal-content">
             <h2 id="modal-title" class="modal-title"></h2>
             <p id="modal-message" class="modal-message"></p>
+            <select id="difficulty-select" class="search-input modal-input">
+                <option value="easy">Easy (Photo Clue)</option>
+                <option value="medium">Medium (Progressive Clues)</option>
+                <option value="hard">Hard (No Clues, Hidden Club)</option>
+            </select>
             <input type="text" id="human-name-input" class="search-input modal-input hidden" placeholder="Enter your name..." autocomplete="off">
             <p id="modal-error" class="modal-error"></p>
             <div id="modal-actions" class="modal-actions">
