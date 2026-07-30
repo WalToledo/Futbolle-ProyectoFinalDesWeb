@@ -230,6 +230,15 @@ footer{
     border-radius: 2px;
 }
 
+.contact-logo {
+    max-height: 30px;
+    width: 100%;
+    max-width: 25vw;
+    min-width: 120px;
+    object-fit: contain;
+    object-position: center;
+}
+
 .form-group{
     display: flex;
     flex-direction: column;

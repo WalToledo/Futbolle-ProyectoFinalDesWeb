@@ -41,8 +41,6 @@ function stopTimer() {
     }
 }
 
-// game inicialization
-
 function initGame() {
     isGameOver = false;
     attemptsLeft = 8;
@@ -68,7 +66,6 @@ function initGame() {
                 extraCluesSection.classList.add('hidden');
             }
             startTimer();
-            console.log('Secret player:', secretPlayer.name);
         },
         function (error) {
             showModal('Connection error', 'It is not possible to get the secret player. Check your internet connection.', true);
@@ -91,7 +88,6 @@ startGameBtn.addEventListener('click', function () {
     startGameBtn.classList.add('hidden');
     modalError.textContent = '';
     startSound.play()
-    
     hideModal();
     initGame();
 });
@@ -106,8 +102,6 @@ inGameRestartBtn.addEventListener('click', function () {
     initGame();
 });
 
-// search
-
 var searchTimeout = null;
 
 searchInput.addEventListener('input', function (e) {
@@ -119,7 +113,6 @@ searchInput.addEventListener('input', function (e) {
         clearAutocomplete();
         return;
     }
-
     searchTimeout = setTimeout(function () {
         searchPlayers(
             query,
@@ -139,8 +132,6 @@ document.addEventListener('click', function (e) {
         clearAutocomplete();
     }
 });
-
-//comparations
 
 function processGuess(guessedPlayer) {
     if (isGameOver || !secretPlayer) return;
@@ -213,7 +204,7 @@ function checkWinCondition(guessedId) {
     }
 }
 
-function saveMatchResult(matchResult) {
+function saveMatchResult(matchResult, matchScore) {
     var attemptsUsed = 8 - attemptsLeft;
     var timeStr = formatTime(secondsElapsed);
     var currentDate = new Date();
@@ -221,6 +212,7 @@ function saveMatchResult(matchResult) {
     var matchRecord = {
         playerName: humanPlayerName,
         result: matchResult,
+        score: matchScore,
         attempts: attemptsUsed,
         date: dateStr,
         duration: timeStr,
@@ -294,24 +286,4 @@ function calculateScore(isWin, attemptsUsed, timeSeconds, difficulty) {
         finalScore = 10;
     }
     return finalScore;
-}
-
-function saveMatchResult(matchResult, matchScore) {
-    var attemptsUsed = 8 - attemptsLeft;
-    var timeStr = formatTime(secondsElapsed);
-    var currentDate = new Date();
-    var dateStr = currentDate.toLocaleDateString() + ' ' + currentDate.toLocaleTimeString();
-    var matchRecord = {
-        playerName: humanPlayerName,
-        result: matchResult,
-        score: matchScore,
-        attempts: attemptsUsed,
-        date: dateStr,
-        duration: timeStr,
-        timestamp: currentDate.getTime()
-    };
-    var history = localStorage.getItem('futbolle_history');
-    var historyArray = history ? JSON.parse(history) : [];
-    historyArray.push(matchRecord);
-    localStorage.setItem('futbolle_history', JSON.stringify(historyArray));
 }
