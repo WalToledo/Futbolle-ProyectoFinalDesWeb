@@ -21,7 +21,7 @@ Futbolle es un juego web interactivo donde el usuario debe adivinar un jugador d
 El proyecto fue desarrollado bajo normas técnicas requeridas por la cátedra:
 *   **HTML5 Semántico:** Sin errores de validación (W3C).
 *   **CSS3 Puro:** Diseño 100% responsivo (Mobile First/Flexbox) sin el uso de frameworks (Bootstrap, Tailwind) ni estilos en línea.
-*   **JavaScript (ES5 Estricto):** Manipulación pura del DOM. Código escrito sin funciones flecha, sin declaraciones `let`/`const`, sin promesas nativas (excepto Fetch) y cumpliendo la restricción de cero líneas en blanco.
+*   **JavaScript (ES5 Estricto):** Manipulación pura del DOM. Código escrito sin funciones flecha, sin declaraciones `let`/`const` y sin promesas nativas (excepto Fetch).
 
 ## Despliegue
 El juego se encuentra funcional y desplegado a través de GitHub Pages.

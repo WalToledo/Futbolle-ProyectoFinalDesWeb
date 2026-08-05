@@ -65,7 +65,6 @@ function initGame() {
             } else {
                 extraCluesSection.classList.add('hidden');
             }
-            startTimer();
         },
         function (error) {
             showModal('Connection error', 'It is not possible to get the secret player. Check your internet connection.', true);
@@ -139,6 +138,9 @@ function processGuess(guessedPlayer) {
         return;
     }
     guessedPlayersIds.push(guessedPlayer.id);
+    if (timerInterval === null) {
+        startTimer();
+    }
     attemptsLeft--;
     updateAttemptsCounter(attemptsLeft);
     if (currentDifficulty === 'easy' && guessedPlayer.id !== secretPlayer.id) {
