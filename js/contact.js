@@ -4,18 +4,21 @@ var contactForm = document.getElementById('contact-form');
 var nameInput = document.getElementById('contact-name');
 var emailInput = document.getElementById('contact-email');
 var messageInput = document.getElementById('contact-message');
-var feedbackMessage = document.createElement('p');
-feedbackMessage.style.marginTop = '1rem';
-feedbackMessage.style.textAlign = 'center';
-feedbackMessage.style.fontWeight = '600';
-contactForm.appendChild(feedbackMessage);
+var feedbackMessage = document.getElementById('contact-feedback');
+var feedbackTimeout = null;
 
-function showFeedback(text, color) {
+function hideFeedback() {
+    feedbackMessage.textContent = '';
+    feedbackMessage.classList.add('hidden');
+}
+
+function showFeedback(text) {
     feedbackMessage.textContent = text;
-    feedbackMessage.style.color = color;
-    setTimeout(function() {
-        feedbackMessage.textContent = '';
-    }, 4000);
+    feedbackMessage.classList.remove('hidden');
+    if (feedbackTimeout) {
+        clearTimeout(feedbackTimeout);
+    }
+    feedbackTimeout = setTimeout(hideFeedback, 4000);
 }
 
 function isValidEmail(email) {
@@ -34,23 +37,21 @@ contactForm.addEventListener('submit', function (e) {
     var emailValue = emailInput.value.trim();
     var messageValue = messageInput.value.trim();
     if (nameValue === '' || emailValue === '' || messageValue === '') {
-        showFeedback('Please, fulfill all camps', '#c62828');
+        showFeedback('Please, fulfill all camps');
         return;
     }
     if (!isValidName(nameValue)) {
-        showFeedback('Please, insert a valid name (only letters and numbers).', '#c62828');
+        showFeedback('Please, insert a valid name (only letters and numbers).');
         return;
     }
     if (!isValidEmail(emailValue)) {
-        showFeedback('Please, insert a correct email.', '#c62828');
+        showFeedback('Please, insert a correct email.');
         return;
     }
     if (messageValue.length < 5) {
-        showFeedback('Message is too short. Has to be of minimum 5 characters.', '#c62828');
+        showFeedback('Message is too short. Has to be of minimum 5 characters.');
         return;
     }
-    var subject = encodeURIComponent('Contact from Futbolle of ' + nameValue);
-    var body = encodeURIComponent(messageValue);
     var subject = encodeURIComponent('Contact from Futbolle of ' + nameValue);
     var body = encodeURIComponent(messageValue);
     window.location.href = 'mailto:' + emailValue + '?subject=' + subject + '&body=' + body;
